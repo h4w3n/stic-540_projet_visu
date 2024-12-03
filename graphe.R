@@ -9,6 +9,15 @@ View(data)
 
 
 #### Q2 - facteurs film apprécié par les internautes ####
+##subset##
+
+###genre et vote_average, nuage de point###
+
+###genre et vote_average, pays, carte thermique###
+
+###popularité et vote_average, nuage de point###
+
+###durée du film et vote_average####
 
 
 #### Q3 - facteurs film est profitable / rentable ####
