@@ -7,6 +7,70 @@ View(data)
 
 #### Q1 - offre cinématographique au fil du temps ####
 
+# évolution sortie de film
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = release_year, y = ..count..))
+
+#evolution sortie de film par mois ==> les mois avec le plus de sortie de film
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = release_month, y = ..count..))
+
+
+#genre par pays de production
+ggplot(data = data) +
+  geom_bar(mapping = aes(x = genres, y = ..count..))+
+  facet_wrap(~production_countries)+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+
+#evolution des genres à travers le temps
+data_genres <- as.data.frame(table(data$release_year,data$genres))
+colnames(data_genres) <- c("release_year","genres", "count_genre")
+
+ggplot(data = data_genres)+
+  geom_line(mapping = aes(x = release_year,y = count_genre,color = genres ,group = genres)) +
+  scale_x_discrete(breaks = seq(1915,2020, by = 15)) +
+  facet_wrap(~genres)+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+#boite à moustache du runtime
+ggplot(data = data) +
+  geom_boxplot(mapping = aes(x = release_year, y = runtime)) +
+  scale_x_discrete(breaks = seq(1915,2020, by = 15)) +
+  facet_wrap(~production_countries)+
+  coord_flip()+
+  scale_y_log10()
+
+
+#sortie film chaque année par pays
+#enleve col = white pour voir que en 1960, il y a 1 film russe sorti
+ggplot(data = data) +
+  geom_histogram(mapping = aes(x = release_year, fill = production_countries), col = "red", binwidth = 5) + 
+  scale_x_continuous(breaks = seq(1900,2025, by = 5)) + 
+  coord_flip()
+
+ggplot(data = data) +
+  geom_histogram(mapping = aes(x = release_year, y = ..count..), col = "red", binwidth = 10) + 
+  scale_x_continuous(breaks = seq(1900,2025, by = 10)) + 
+  facet_wrap(~production_countries)+
+  coord_flip()
+
+
+ggplot(data = data) +
+  geom_jitter(mapping = aes(x = release_year,
+                           y = production_countries,
+                           size = runtime), alpha = 0.5 )
+
+
+#carte thermique: genre pour chaque pays
+ggplot(data = data) +
+  geom_bin2d(mapping = aes(x = production_countries,
+                           y = genres,
+                           fill = ..count..))
+
+
 
 #### Q2 - facteurs film apprécié par les internautes ####
 ##subset##
