@@ -64,13 +64,16 @@ ggplot(data = data) +
                            size = runtime), alpha = 0.5 )
 
 
-#carte thermique: genre pour chaque pays
+#carte thermique: genre pour chaque pays/langues
 ggplot(data = data) +
   geom_bin2d(mapping = aes(x = production_countries,
                            y = genres,
                            fill = ..count..))
 
-
+ggplot(data = data) +
+  geom_bin2d(mapping = aes(x = original_language,
+                           y = genres,
+                           fill = ..count..))
 
 #### Q2 - facteurs film apprécié par les internautes ####
 ##subset##
