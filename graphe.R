@@ -80,11 +80,15 @@ ggplot(data = data) +
 # hypothèse les votes des internautes date des années 2000, et à partir de là note des trucs proche de leur date de sortie
 film_Y2K = subset(data, release_year >= 2000 & vote_count > 0)
 film_Y2K_with_note = subset(film_Y2K, vote_count > 100)
-film_with_note = subset(data, vote_count > 100, vote_count)
+#film_with_note = subset(data, vote_count > 100, vote_count)
+film_with_note = subset(data, vote_count > 100)
 
 ###genre et vote_average, courbes###
 ggplot(data = film_Y2K_with_note) +
-  geom_line(mapping = aes(x = release_year, y = vote_average),stat = "summary", fun = "mean") + facet_wrap(~ genres)
+  # geom_line(mapping = aes(x = release_year, y = vote_average),stat = "summary", fun = "mean") + 
+  geom_line(mapping = aes(x = release_year, y = vote_average),stat = "summary", fun = "median") +
+  geom_point(mapping = aes(x = release_year, y = vote_average),stat = "summary", fun = "median") +
+  facet_wrap(~ genres)
 
 ###genre et vote_average, nuage de point###
 ggplot(film_Y2K_with_note) + 
@@ -190,9 +194,10 @@ library(ggplot2)
 library(viridis)  # Palette de couleurs
 
 ggplot(data = data, aes(x = popularity, y = profitability)) +
-  geom_hex(bins = 30) +  # Hexbin avec 30 hexagones
-  scale_fill_viridis(option = "plasma") +  # Palette de couleurs
-  scale_y_log10() +  # Échelle logarithmique pour l'axe Y
+  geom_hex(bins = 30) +  # Crée un graphique hexbin
+  scale_fill_gradient(low = "blue", high = "red") +  # Palette de couleurs simple
+  scale_x_log10() +  # Échelle logarithmique pour la profitabilité
+  scale_y_log10() + 
   labs(
     title = "Relation entre la popularité et la profitabilité des films",
     x = "Popularité",
